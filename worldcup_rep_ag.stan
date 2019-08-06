@@ -1,5 +1,5 @@
 data {
-  int I;   // number of teams 
+  int I;   // number of teams
   int N;   // number of matches
   vector[I] prior_score;  // per-team ranking
   // this is a 4-column data table of per-game outcomes
@@ -14,19 +14,19 @@ transformed data {
 parameters {
   real beta;            // common intercept
   vector[I] alpha;   // vector of per-team weights
-  real<lower=0> sigma_alpha;   // common variance
+  real<lower=0> sigma_a;   // common variance
   real<lower=0> sigma_y;  // noise term in our estimate
 }
 transformed parameters {
   // "mixed effects" model - common intercept + random effects
-  vector[I] ability = beta * prior_score + alpha * sigma_alpha;
+  vector[I] ability = beta * prior_score + alpha * sigma_a;
 }
 model {
   alpha ~ normal(0, 1); // priors on all parameters
   beta ~ normal(0, 2.5);
-  sigma_alpha ~ normal(0, 2.5);
+  sigma_a ~ normal(0, 2.5);
   sigma_y ~ normal(0, 2.5);
-  
+
   y ~ student_t(7, ability[team_1] - ability[team_2], sigma_y);
 }
 generated quantities {
