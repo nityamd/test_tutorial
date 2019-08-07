@@ -17,8 +17,8 @@ static int current_statement_begin__;
 
 stan::io::program_reader prog_reader__() {
     stan::io::program_reader reader;
-    reader.add_event(0, 0, "start", "worldcup_rep_ag.stan");
-    reader.add_event(42, 40, "end", "worldcup_rep_ag.stan");
+    reader.add_event(0, 0, "start", "/Users/nitya/Work/test_tutorial/worldcup_rep_ag.stan");
+    reader.add_event(42, 40, "end", "/Users/nitya/Work/test_tutorial/worldcup_rep_ag.stan");
     return reader;
 }
 
@@ -216,17 +216,17 @@ public:
         }
 
         current_statement_begin__ = 17;
-        if (!(context__.contains_r("sigma_alpha")))
-            stan::lang::rethrow_located(std::runtime_error(std::string("Variable sigma_alpha missing")), current_statement_begin__, prog_reader__());
-        vals_r__ = context__.vals_r("sigma_alpha");
+        if (!(context__.contains_r("sigma_a")))
+            stan::lang::rethrow_located(std::runtime_error(std::string("Variable sigma_a missing")), current_statement_begin__, prog_reader__());
+        vals_r__ = context__.vals_r("sigma_a");
         pos__ = 0U;
-        context__.validate_dims("parameter initialization", "sigma_alpha", "double", context__.to_vec());
-        double sigma_alpha(0);
-        sigma_alpha = vals_r__[pos__++];
+        context__.validate_dims("parameter initialization", "sigma_a", "double", context__.to_vec());
+        double sigma_a(0);
+        sigma_a = vals_r__[pos__++];
         try {
-            writer__.scalar_lb_unconstrain(0, sigma_alpha);
+            writer__.scalar_lb_unconstrain(0, sigma_a);
         } catch (const std::exception& e) {
-            stan::lang::rethrow_located(std::runtime_error(std::string("Error transforming variable sigma_alpha: ") + e.what()), current_statement_begin__, prog_reader__());
+            stan::lang::rethrow_located(std::runtime_error(std::string("Error transforming variable sigma_a: ") + e.what()), current_statement_begin__, prog_reader__());
         }
 
         current_statement_begin__ = 18;
@@ -292,12 +292,12 @@ public:
                 alpha = in__.vector_constrain(I);
 
             current_statement_begin__ = 17;
-            local_scalar_t__ sigma_alpha;
-            (void) sigma_alpha;  // dummy to suppress unused var warning
+            local_scalar_t__ sigma_a;
+            (void) sigma_a;  // dummy to suppress unused var warning
             if (jacobian__)
-                sigma_alpha = in__.scalar_lb_constrain(0, lp__);
+                sigma_a = in__.scalar_lb_constrain(0, lp__);
             else
-                sigma_alpha = in__.scalar_lb_constrain(0);
+                sigma_a = in__.scalar_lb_constrain(0);
 
             current_statement_begin__ = 18;
             local_scalar_t__ sigma_y;
@@ -313,7 +313,7 @@ public:
             Eigen::Matrix<local_scalar_t__, Eigen::Dynamic, 1> ability(I);
             stan::math::initialize(ability, DUMMY_VAR__);
             stan::math::fill(ability, DUMMY_VAR__);
-            stan::math::assign(ability,add(multiply(beta, prior_score), multiply(alpha, sigma_alpha)));
+            stan::math::assign(ability,add(multiply(beta, prior_score), multiply(alpha, sigma_a)));
 
             // validate transformed parameters
             const char* function__ = "validate transformed params";
@@ -336,7 +336,7 @@ public:
             current_statement_begin__ = 26;
             lp_accum__.add(normal_log<propto__>(beta, 0, 2.5));
             current_statement_begin__ = 27;
-            lp_accum__.add(normal_log<propto__>(sigma_alpha, 0, 2.5));
+            lp_accum__.add(normal_log<propto__>(sigma_a, 0, 2.5));
             current_statement_begin__ = 28;
             lp_accum__.add(normal_log<propto__>(sigma_y, 0, 2.5));
             current_statement_begin__ = 30;
@@ -369,7 +369,7 @@ public:
         names__.resize(0);
         names__.push_back("beta");
         names__.push_back("alpha");
-        names__.push_back("sigma_alpha");
+        names__.push_back("sigma_a");
         names__.push_back("sigma_y");
         names__.push_back("ability");
         names__.push_back("y_rep");
@@ -421,8 +421,8 @@ public:
             vars__.push_back(alpha(j_1__));
         }
 
-        double sigma_alpha = in__.scalar_lb_constrain(0);
-        vars__.push_back(sigma_alpha);
+        double sigma_a = in__.scalar_lb_constrain(0);
+        vars__.push_back(sigma_a);
 
         double sigma_y = in__.scalar_lb_constrain(0);
         vars__.push_back(sigma_y);
@@ -443,7 +443,7 @@ public:
             Eigen::Matrix<double, Eigen::Dynamic, 1> ability(I);
             stan::math::initialize(ability, DUMMY_VAR__);
             stan::math::fill(ability, DUMMY_VAR__);
-            stan::math::assign(ability,add(multiply(beta, prior_score), multiply(alpha, sigma_alpha)));
+            stan::math::assign(ability,add(multiply(beta, prior_score), multiply(alpha, sigma_a)));
 
             if (!include_gqs__ && !include_tparams__) return;
             // validate transformed parameters
@@ -527,7 +527,7 @@ public:
             param_names__.push_back(param_name_stream__.str());
         }
         param_name_stream__.str(std::string());
-        param_name_stream__ << "sigma_alpha";
+        param_name_stream__ << "sigma_a";
         param_names__.push_back(param_name_stream__.str());
         param_name_stream__.str(std::string());
         param_name_stream__ << "sigma_y";
@@ -568,7 +568,7 @@ public:
             param_names__.push_back(param_name_stream__.str());
         }
         param_name_stream__.str(std::string());
-        param_name_stream__ << "sigma_alpha";
+        param_name_stream__ << "sigma_a";
         param_names__.push_back(param_name_stream__.str());
         param_name_stream__.str(std::string());
         param_name_stream__ << "sigma_y";
